@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Old+Hungarian&display=swap');
+
+:root {
+    /* https://css-tricks.com/sans-serif/ and https://css-tricks.com/snippets/css/better-helvetica/ */
+    --font-sans: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    --font-runes: "Noto Sans Old Hungarian", sans-serif, serif;
+    --accent-color: #822900
+}
+
+* {
+    font-family: var(--font-sans);
+}
+
+body {
+    min-height: 100%;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.rovogep-header {
+    text-align: center;
+}
+.rovogep-main {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    gap: 30px;
+    padding: 0 30px;
+}
+.rovogep-field {
+    flex: 1;
+    min-width: 350px;
+
+    display: flex;
+    flex-flow: column nowrap;
+
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: #DDDDDD 0 10px 15px 0;
+}
+.rovogep-field > label {
+    text-align: center;
+    margin-bottom: 5px;
+}
+.rovogep-field > textarea {
+    resize: none;
+    border: none;
+    outline: transparent solid 2px;
+    padding: 10px;
+    box-shadow: none;
+    border-radius: 20px;
+    transition: outline 0.2s ease-in-out;
+}
+.rovogep-field > textarea:focus {
+    outline: var(--accent-color) solid 2px;
+}
+#rovogep-runes {
+    font-family: var(--font-runes);
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    line-height: 3em;
+}
+.author {
+    display: inline;
+    font-style: normal;
+}
+.author > .profile-picture {
+    display: inline;
+    height: 1.2em;  /* fallback */
+    height: 1.7cap;
+    vertical-align: -15%; /* fallback */
+    vertical-align: -0.35cap;
+    border-radius: 1000px;
+    box-shadow: #DDDDDD 0 1px 5px 0;
+}
