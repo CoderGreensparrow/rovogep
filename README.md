@@ -3,7 +3,7 @@ Magyar szöveget a Unicode által kódolt magyar rovásírássá alakít át.
 Converts Hungarian texts to Old Hungarian runes, as encoded by Unicode.
 
 ## Magyar leírás
-A Unicode Szabvány – amely jelenleg a világ elsődleges karakterkódoló szabványa – 2015-ös, 8.0-ás verziójában hozzáadta karakterkészletéhez a székely-magyar rovásírást az új „Old Hungarian” (vagyis „Ómagyar”) Unicode-blokkba. Ezek használata viszont okoz még egy kis nehézséget, ezért ennek a projektnek az a célja, hogy létrejöjjön egy olyan egyszerűen működő weboldal, ami egy magyar nyelvű szöveget a Unicode által definiált rovásjelekre fordít.
+A Unicode Szabvány – amely jelenleg a világ elsődleges karakterkódoló szabványa – 2015-ös, 8.0-ás verziójában hozzáadta karakterkészletéhez a székely-magyar rovásírást az új „Old Hungarian” (vagyis „Ómagyar”) Unicode-blokkba. Ezek használata viszont még jelenthet egy kis nehézséget, ezért ennek a projektnek az a célja, hogy létrejöjjön egy olyan egyszerűen működő weboldal, ami egy magyar nyelvű szöveget a Unicode által definiált rovásjelekre fordít.
 
 ### Technikai információk
 Az egész lényegi program, vagyis a konvertáló rovógép, JavaScriptben van írva, és lokálisan fut a böngészőben. Nincs szükség háttérszerverre a konvertáláshoz.
@@ -15,7 +15,7 @@ Karakterenként lépkedve a bemeneti szövegláncban, egy mohó algoritmus miné
 **Ajánlott egyszerűen letölthető betűtípus (font): [Noto Sans Old Hungarian](https://fonts.google.com/share?selection.family=Noto+Sans+Old+Hungarian)**
 
 ## English description
-The Unicode Standard—which is currently the primary character encoding standard in the world—extended its character set with the Old Hungarian script, also called Hungarian runes, in a new Unicode block titled "Old Hungarian" in its 8.0 version in 2015. However, the usage of these characters still poses a bit of a challenge, and so the goal of this project is to create a simple website that converts Hungarian texts to Hungarian runes, as defined by the Unicode Standard.
+The Unicode Standard—which is currently the primary character encoding standard in the world—extended its character set with the Old Hungarian script, also called Hungarian runes, in a new Unicode block titled "Old Hungarian" in its 8.0 version in 2015. However, the usage of these characters can still pose a bit of a challenge, and so the goal of this project is to create a simple website that converts Hungarian texts to Hungarian runes, as defined by the Unicode Standard.
 
 ### Technical information
 The main component of the program, which means the "rune carver machine" that does the conversion, is written in JavaScript and runs locally in the browser. There is no backend server required for the conversion process.
