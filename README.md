@@ -1,6 +1,6 @@
 # Rovógép
-Magyar szöveget a Unicode által kódolt magyar rovásírássá alakít át.
-Converts Hungarian texts to Old Hungarian runes, as encoded by Unicode.
+Egy weboldal, amelyen magyar szöveget a Unicode által kódolt székely-magyar rovásírássá lehet átalakítani.
+A website where one can convert Hungarian text to Old Hungarian runes, as defined by Unicode.
 
 ## Magyar leírás
 A Unicode Szabvány – amely jelenleg a világ elsődleges karakterkódoló szabványa – 2015-ös, 8.0-ás verziójában hozzáadta karakterkészletéhez a székely-magyar rovásírást az új „Old Hungarian” (vagyis „Ómagyar”) Unicode-blokkba. Ezek használata viszont még jelenthet egy kis nehézséget, ezért ennek a projektnek az a célja, hogy létrejöjjön egy olyan egyszerűen működő weboldal, ami egy magyar nyelvű szöveget a Unicode által definiált rovásjelekre fordít.
