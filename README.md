@@ -3,7 +3,7 @@ Magyar szöveget a Unicode által kódolt magyar rovásírássá alakít át.
 Converts Hungarian texts to Old Hungarian runes, as encoded by Unicode.
 
 ## Magyar leírás
-A Unicode Szabvány – amely jelenleg a világ elsődleges karakterkódoló szabványa – 2015-ös, 8.0-ás verziójában hozzáadta karakterkészletéhez a székely-magyar rovásírást az új „Old Hungarian” (vagyis „Ómagyar”) Unicode-blokkba. Ezek használata viszont okoz még egy kis nehézséget, ezért ennek a projektnek a célja az, hogy létrejöjjön egy olyan egyszerűen működő weboldal, ami egy magyar nyelvű szöveget a Unicode által definiált rovásjelekre fordít.
+A Unicode Szabvány – amely jelenleg a világ elsődleges karakterkódoló szabványa – 2015-ös, 8.0-ás verziójában hozzáadta karakterkészletéhez a székely-magyar rovásírást az új „Old Hungarian” (vagyis „Ómagyar”) Unicode-blokkba. Ezek használata viszont okoz még egy kis nehézséget, ezért ennek a projektnek az a célja, hogy létrejöjjön egy olyan egyszerűen működő weboldal, ami egy magyar nyelvű szöveget a Unicode által definiált rovásjelekre fordít.
 
 ### Technikai információk
 Az egész lényegi program, vagyis a konvertáló rovógép, JavaScriptben van írva, és lokálisan fut a böngészőben. Nincs szükség háttérszerverre a konvertáláshoz.
