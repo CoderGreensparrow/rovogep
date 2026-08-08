@@ -1,5 +1,5 @@
 # Rovógép
-Egy weboldal, amelyen magyar szöveget a Unicode által kódolt székely-magyar rovásírássá lehet átalakítani.
+Egy weboldal, amelyen magyar szöveget a Unicode által kódolt székely-magyar rovásírássá lehet átalakítani.<br>
 A website where one can convert Hungarian text to Old Hungarian runes, as defined by Unicode.
 
 ## Magyar leírás
