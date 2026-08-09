@@ -102,16 +102,19 @@ const runeNumberTable = new Map([
     [1000, "𐳿"]
 ]);
 const arabicNumberTable = createReverseMap(runeNumberTable);
+const runeTableMaxMatchLength = Math.max(...runeTable.keys().toArray().map((x) => x.length));
+const latinTableMaxMatchLength = Math.max(...latinTable.keys().toArray().map((x) => x.length));
 const runeNumberCharacters = ["∅", "𐳺", "𐳻", "𐳼", "𐳽", "𐳾", "𐳿"];
 const arabicNumberCharacters = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-const maxMatchLength = Math.max(...runeTable.keys().toArray().map((x) => x.length));
+const runeNumberMatcher = /[∅𐳺𐳻𐳼𐳽𐳾𐳿]+/ivd;
+const arabicNumberMatcher = /\d+/ivd;
 
 function numberConvert__convertUnderThousand(numberUnderThousand, outputIfOne, outputOneHundredAsONEHundred) {
     let remaining = numberUnderThousand;
     let outputDraft = "";
     while (remaining > 0) {
         if (remaining > 999) {
-            outputDraft = "KRITIKUS_SZÁMVÁLTÁSI_HIBA";
+            outputDraft = "CRITICAL_INTERNAL_NUMBER_CONVERSION_ERROR";
             remaining = 0;
         } else if (remaining > 99) {
             let hundreds = Math.floor(remaining / 100);
@@ -163,9 +166,47 @@ function numberConvert(matchString, latinModified) {
             }
         }
     } else {
-        // reverse procedure: decode ones and tens, and put them to their place when detecting a 100 or 1000.
+        // reverse procedure: decode character by character, and put them to their place when detecting a 100 or 1000 (because these are the only "grouped" numbers, aka one can write forty-two hundred, instead of 42 literal hundred characters.)
         // ∅ is ignored, unless the entire string only consists of it.
-
+        // Since all Old Hungarian rune numbers are technically counted as two characters, I'll do it that way...
+        // I'll also pre-filter for ∅ because it can cause issues.
+        if (matchString.split("").every((x) => x === runeNumberTable.get(0))) {
+            for (let i = 1; i <= matchString.length; i++) {
+                outputDraft += "0";
+            }
+        } else {
+            // remove "runic" zero-replacement characters (because that only counts as one character, while all other runes count as two, which would mess up the loop with a shift in the character read head)
+            matchString = matchString.replaceAll(runeNumberTable.get(0), "");
+            let i = 0;
+            let thousands = 0;
+            let hundreds = 0;
+            let lows = 0;
+            let outputNumberDraft = 0;
+            while (i < matchString.length) {
+                let currentDoubleUnicodeCharacter = matchString.slice(i, i + 2);
+                if (currentDoubleUnicodeCharacter === runeNumberTable.get(1000)) {
+                    thousands = hundreds + lows;
+                    hundreds = 0;
+                    lows = 0;
+                    if (thousands === 0) {
+                        thousands = 1;
+                    }
+                    thousands *= 1000;
+                } else if (currentDoubleUnicodeCharacter === runeNumberTable.get(100)) {
+                    hundreds = lows;
+                    lows = 0;
+                    if (hundreds === 0) {
+                        hundreds = 1;
+                    }
+                    hundreds *= 100;
+                } else {
+                    lows += arabicNumberTable.get(currentDoubleUnicodeCharacter);  // this can only be done because there is no complex subtraction stuff, like with roman numerals
+                }
+                i += 2;
+            }
+            outputNumberDraft = thousands + hundreds + lows;
+            outputDraft = String(outputNumberDraft);
+        }
     }
 
     return outputDraft;
@@ -175,7 +216,9 @@ function syncRovogep(latinModified) {
     const input = latinModified ? rovogepLatin.value : rovogepRunes.value;
     const outputElement = latinModified ? rovogepRunes : rovogepLatin;
     const localTable = latinModified ? runeTable : latinTable;
+    const maxMatchLength = latinModified ? runeTableMaxMatchLength : latinTableMaxMatchLength;
     const localNumberCharacters = latinModified ? arabicNumberCharacters : runeNumberCharacters;
+    const localNumberMatcher = latinModified ? arabicNumberMatcher : runeNumberMatcher;
 
     let i = 0;
     let outputDraft = "";
@@ -187,20 +230,25 @@ function syncRovogep(latinModified) {
             let matchStringLower = matchString.toLowerCase();
             let matchStringUpper = matchString.toUpperCase();
 
-            if (localNumberCharacters.includes(matchString[0])) {  // we have hit upon a number
-                // adjust matchLength until we get all of the number
-                matchLength = 1;
-                while (localNumberCharacters.includes(input[i + matchLength]) && (i + matchLength < input.length)) {  // if next character is a number and not overflow
-                    matchLength += 1;
+            let numberMatchString = input.slice(i, input.length);
+            if (localNumberCharacters.includes(numberMatchString[0]) || localNumberCharacters.includes(numberMatchString.slice(0, 2))) {  // we have hit upon a number (the first or fisrt two characters are an arabic or runic numeral... because unicode encoding)
+                // find the number starting from here with regex, because it can handle "double-width", properly called "surrogate pairs" Unicode characters
+                let result = localNumberMatcher.exec(numberMatchString);
+                if (result !== null) {
+                    matchLength = result.indices[0][1];
+                    // convert number
+                    matchString = input.slice(i, i + matchLength);
+                    // console.log(matchString);  check if regex finds and selects right numberstring
+                    outputDraft += numberConvert(matchString, latinModified);
+                    i += matchLength;
+                    foundMatch = true;
+                } else {
+                    outputDraft = "INTERNAL_REGEX_NUMBER_MATCHING_ERROR";
+                    i = input.length;
                 }
-                // convert number
-                matchString = input.slice(i, i + matchLength);
-                outputDraft += numberConvert(matchString, latinModified);
-                i += matchLength;
-                foundMatch = true;
             }
             else {
-                if (localTable.has(matchStringUpper)) {
+                if (localTable.has(matchStringUpper) && matchLength > 0) {  // don't match to empty strings
                     if (matchStringLower !== matchString) {  // if there is an uppercase letter
                         outputDraft += localTable.get(matchString);  // then query from table
                     } else {  // else handle full lowercase dynamically
