@@ -78,6 +78,10 @@ const runeTable = new Map([
     ["Zzs", "𐲰𐳰"]
 ])
 const latinTable = createReverseMap(runeTable);
+// Don't write Q, W, X when converting from runes to latin
+latinTable.delete("𐲓𐲪");
+latinTable.delete("𐲮𐲮");
+latinTable.delete("𐲓𐲥");
 const runeNumberTable = new Map([
     [0, "∅"],
     [1, "𐳺"],
