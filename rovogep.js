@@ -14,7 +14,7 @@ const runeTable = new Map([
     ["„", "⹂"],
     ["”", "‟"],
     ["Q", "𐲓𐲪"],
-    ["W", "𐲮"],
+    ["W", "𐲮𐲮"],
     ["X", "𐲓𐲥"],
     ["Y", "𐲐"],
     ["A", "𐲀"],
@@ -343,8 +343,8 @@ rovogepRunes.addEventListener("input", (event) => {
 
 /* CLIPBOARD FUNCTIONALITY */
 // https://stackoverflow.com/a/30810322
+let notificationZone = document.getElementById("frontend-notifications");
 function copyToClipboardWithFeedback(text) {
-    let notificationZone = document.getElementById("frontend-notifications");
     navigator.clipboard.writeText(text).then(function() {
         let newMsg = document.createElement("p");
         newMsg.innerText = "Másolás sikeres!";
@@ -353,17 +353,33 @@ function copyToClipboardWithFeedback(text) {
         setTimeout(() => {notificationZone.removeChild(newMsg)}, 2500);
     }, function(err) {
         let newMsg = document.createElement("p");
-        newMsg.innerText = `Hiba másoláskor (az üzenet nem tűnik el): ${err}`;
+        newMsg.innerText = `Hiba másoláskor: ${err}`;
         newMsg.classList.add("error");
         notificationZone.appendChild(newMsg);
+        setTimeout(() => {notificationZone.removeChild(newMsg)}, 5000);
     });
+}
+function sendInfo(text) {
+    let newMsg = document.createElement("p");
+    newMsg.innerText = text;
+    newMsg.classList.add("info");
+    notificationZone.appendChild(newMsg);
+    setTimeout(() => {notificationZone.removeChild(newMsg)}, 2500);
 }
 
 document.getElementById("rovogep-latin-copy").addEventListener("click", (event) => {
     let text = rovogepLatin.value;
-    copyToClipboardWithFeedback(text);
+    if (text.length > 0) {
+        copyToClipboardWithFeedback(text);
+    } else {
+        sendInfo("Nincs másolandó szöveg.")
+    }
 })
 document.getElementById("rovogep-runes-copy").addEventListener("click", (event) => {
     let text = rovogepRunes.value;
-    copyToClipboardWithFeedback(text);
+    if (text.length > 0) {
+        copyToClipboardWithFeedback(text);
+    } else {
+        sendInfo("Nincs másolandó szöveg.")
+    }
 })
