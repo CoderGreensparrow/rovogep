@@ -3,8 +3,9 @@
 :root {
     /* https://css-tricks.com/sans-serif/ and https://css-tricks.com/snippets/css/better-helvetica/ */
     --font-sans: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-    --font-runes: "Noto Sans Old Hungarian", sans-serif, serif;
-    --accent-color: #822900
+    --font-runes: "Noto Sans Old Hungarian", Verdana, Geneva, Tahoma, sans-serif, serif;
+    --accent-color: #822900;
+    --shadow-color: rgba(0, 0, 0, 0.15);
 }
 
 * {
@@ -12,10 +13,11 @@
 }
 
 body {
-    min-height: 100%;
+    min-height: 100vh;
 }
 
 main {
+    width: 80%;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -27,23 +29,49 @@ main {
     display: flex;
     flex-flow: row wrap;
     width: 100%;
-    gap: 30px;
-    padding: 0 30px;
+    gap: 10px;
+    padding: 0 10px;
 }
 .rovogep-field {
     flex: 1;
-    min-width: 350px;
+    min-width: 250px;
 
     display: flex;
     flex-flow: column nowrap;
 
     padding: 20px;
     border-radius: 20px;
-    box-shadow: #DDDDDD 0 10px 15px 0;
+    box-shadow: var(--shadow-color) 0 10px 15px 0;
 }
-.rovogep-field > label {
-    text-align: center;
-    margin-bottom: 5px;
+.rovogep-field-control {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.rovogep-field-control > label {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+.material-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 1000px;
+
+    background-color: transparent;
+    transition: all 0.1s ease-in-out;
+}
+.material-button:hover {
+    box-shadow: var(--shadow-color) 0 0 15px 0;
+}
+.material-button:active {
+    box-shadow: var(--shadow-color) 0 0 15px 0 inset;
 }
 .rovogep-field > textarea {
     resize: none;
@@ -52,25 +80,29 @@ main {
     padding: 10px;
     box-shadow: none;
     border-radius: 20px;
-    transition: outline 0.2s ease-in-out;
+    transition: outline 0.1s ease-in-out;
 }
 .rovogep-field > textarea:focus {
     outline: var(--accent-color) solid 2px;
 }
 #rovogep-runes {
     font-family: var(--font-runes);
+    direction: rtl;
 }
 
+
 footer {
-    position: absolute;
-    bottom: 0;
+    font-size: 12px;
     width: 100%;
     text-align: center;
     line-height: 3em;
+    margin-top: 30px;
+    background-color: #b8f8bd;
 }
 .author {
     display: inline;
     font-style: normal;
+    text-decoration: none;
 }
 .author > .profile-picture {
     display: inline;
@@ -79,5 +111,5 @@ footer {
     vertical-align: -15%; /* fallback */
     vertical-align: -0.35cap;
     border-radius: 1000px;
-    box-shadow: #DDDDDD 0 1px 5px 0;
+    box-shadow: var(--shadow-color) 0 1px 5px 0;
 }

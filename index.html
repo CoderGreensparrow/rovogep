@@ -6,6 +6,8 @@
     <title>Rovógép 𐲢𐳛𐳮𐳜𐳍𐳋𐳠</title>
     <link rel="stylesheet" href="cssreset.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=content_copy" />
+    <link rel="stylesheet" href="material-symbols.css">
     <script src="rovogep.js" defer></script>
 </head>
 <body>
@@ -14,15 +16,21 @@
     <h1 class="rovogep-header">Rovógép</h1>
     <section class="rovogep-main">
         <div class="rovogep-field">
-            <label for="rovogep-latin">Latin betűs magyar írás</label>
-            <textarea id="rovogep-latin" autofocus placeholder="Írjon be valamit..."></textarea>
+            <div class="rovogep-field-control">
+                <label for="rovogep-latin">Latin betűs magyar írás</label>
+                <button class="material-button" id="rovogep-latin-copy"><span class="material-symbols-outlined">content_copy</span></button>
+            </div>
+            <textarea id="rovogep-latin" autofocus placeholder="Írjon be valamit..." spellcheck="true" rows="8"></textarea>
         </div>
         <div class="rovogep-field">
-            <label for="rovogep-runes">Székely-magyar rovásírás</label>
-            <textarea id="rovogep-runes" dir="rtl" placeholder="𐲢𐳛𐳮𐳁𐳤 𐳏𐳉𐳗𐳉..."></textarea>
+            <div class="rovogep-field-control">
+                <label for="rovogep-runes">Székely-magyar rovásírás</label>
+                <button class="material-button" id="rovogep-runes-copy"><span class="material-symbols-outlined">content_copy</span></button>
+            </div>
+            <textarea id="rovogep-runes" placeholder="𐲢𐳛𐳮𐳁𐳤 𐳏𐳉𐳗𐳉..." spellcheck="false" rows="8"></textarea>
         </div>
     </section>
 </main>
-<footer>by <address class="author"><img src="img/Láprét%202_profilkép.JPG" class="profile-picture"> CoderGreensparrow</address>, licensed under the MIT license</footer>
+<footer>by <a class="author" href="https://github.com/CoderGreensparrow/rovogep"><img src="img/Láprét%202_profilkép.JPG" class="profile-picture"> CoderGreensparrow</a>, licensed under the MIT license</footer>
 </body>
 </html>
