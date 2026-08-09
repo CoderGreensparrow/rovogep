@@ -5,6 +5,24 @@ A website where one can convert Hungarian text to Old Hungarian runes, as define
 ## Magyar leírás
 A Unicode Szabvány – amely jelenleg a világ elsődleges karakterkódoló szabványa – 2015-ös, 8.0-ás verziójában hozzáadta karakterkészletéhez a székely-magyar rovásírást az új „Old Hungarian” (vagyis „Ómagyar”) Unicode-blokkba. Ezek használata viszont még jelenthet egy kis nehézséget, ezért ennek a projektnek az a célja, hogy létrejöjjön egy olyan egyszerűen működő weboldal, ami egy magyar nyelvű szöveget a Unicode által definiált rovásjelekre fordít.
 
+### Használati útmutató
+
+Egyszerűen csak be kell írni a magyar szöveget balra, a jobb oldali szövegmezőben meg megjelenik az átirat.
+Minden szám is át lesz írva rovás számokra.
+A központozás, ahol szükséges, tükrözve lesz (ezek is speciális karakterek, mint maga a rovás). A zárójeleket szögletes zárójelre cseréli a rendszer, hogy ne keveredhessen a rovás N betű a ) zárójellel.
+Hogy más programban is megjelenhessenek a karakterek, egy betűtípus letöltésére lehet szükség.
+**Ajánlott egyszerűen letölthető betűtípus (font): [Noto Sans Old Hungarian](https://fonts.google.com/share?selection.family=Noto+Sans+Old+Hungarian)**
+
+Ha valahol a program eltévesztené az átrovást, pl. a "házszám" esetében, amit "házs-zám"-nak olvas, be lehet rakni a megfelelő elválasztás helyére egy *aposztrófot* (vagyis ' ). Az aposztróf csak a programnak szolgál jelzésül a megfelelő elválasztáshoz, és nem fog megjelenni az átrovásban. Így lesz a "ház'szám"-ból rendesen átrótt "ház-szám".
+
+Az idegen eredetű latin betűket magyar betűkkel írja át a program, ilyenformán: (a jobb oldalon szereplő betűk rovásírásnak értendők)
+- Q → KU
+- W → VV
+- X → KSZ
+- Y → I
+Ha a Q, W, X vagy Y betűk nagyok, akkor minden hozzájuk tartozó átrovás is nagy lesz, pl. "Xilofon" → "KSZilofon" (utóbbi KSZilofon rovásnak értendő). Továbbá rovásból latin betűkre alakításnál a program sose alakít Q, W, X vagy Y betűkre. Így visszafele alakításnál is latin betűvel az utóbb felsorolt formában lesz: KSZilofon.
+Ha kicsik a latin betűk, akkor természetesen kicsik lesznek a rovás betűk is.
+
 ### Technikai információk
 Az egész lényegi program, vagyis a konvertáló rovógép, JavaScriptben van írva, és lokálisan fut a böngészőben. Nincs szükség háttérszerverre a konvertáláshoz.
 
@@ -12,11 +30,13 @@ Konvertálási folyamat:
 
 Karakterenként lépkedve a bemeneti szövegláncban, egy mohó algoritmus minél több – de csakis a lehetséges és szükséges mennyiségű – sorban következő karaktert próbál megadott karaktermintákhoz egyeztetni. Ezek a minták a modern magyar ábécé betűi, hosszú betűi, illetve bármi más kivételes kombináció, ha ilyen szükséges a mohó algoritmus sikeres alkalmazásához. Ilyenek a „dzs”, a „ggy”, a „ddzs”, a „sz”, a „v”, az „á”; az összes betű felsorolva. Ezek a minták egy asszociatív tömbben vannak tárolva, és kulcsokként szerepelnek; a hozzájuk tartozó értékek pedig a rovásírássá alakított formák. Ilyen módon – reményeim szerint a legeslegtöbb esetben – helyesen fogja az algoritmus „átróni” a szavakat. A kimenet egyszerűen másolható, viszont megjelenítéséhez egy speciális betűtípusra (fontra) van szükség a legtöbb esetben.
 
-**Ajánlott egyszerűen letölthető betűtípus (font): [Noto Sans Old Hungarian](https://fonts.google.com/share?selection.family=Noto+Sans+Old+Hungarian)**
-
 Az átalakítás az ellentétes irányba is elvégezhető – rovásírásból modern magyar írásba.
 
-## English description
+Számok átrovása is lehetséges, ennek folyamata kicsit összetettebb, de hasonlít a római számok kezelésére. (Viszont, mivel a JavaScript olyan, amilyen, ezért a U+FFFF kódpont feletti rovásírásbeli számok nem egy, hanem két karakternek vannak számolva naiv megoldást használva. Ez a probléma megoldásra került egy kicsit fura módszerrel.) Mivel ennek a folyamata komplikáltabb, ezért ebbe nem megyek itt bele.
+
+Továbbá van még egy rendszer a két-három karakteres betűk nagy- és kisbetűsségének javítására (csak rovás → latin módban, a latinra alkalmazva). Ennek részletei a kódban vannak.
+
+## English description (TODO Update)
 The Unicode Standard—which is currently the primary character encoding standard in the world—extended its character set with the Old Hungarian script, also called Hungarian runes, in a new Unicode block titled "Old Hungarian" in its 8.0 version in 2015. However, the usage of these characters can still pose a bit of a challenge, and so the goal of this project is to create a simple website that converts Hungarian texts to Hungarian runes, as defined by the Unicode Standard.
 
 ### Technical information
