@@ -343,12 +343,27 @@ rovogepRunes.addEventListener("input", (event) => {
 
 /* CLIPBOARD FUNCTIONALITY */
 // https://stackoverflow.com/a/30810322
+function copyToClipboardWithFeedback(text) {
+    let notificationZone = document.getElementById("frontend-notifications");
+    navigator.clipboard.writeText(text).then(function() {
+        let newMsg = document.createElement("p");
+        newMsg.innerText = "Másolás sikeres!";
+        newMsg.classList.add("success");
+        notificationZone.appendChild(newMsg);
+        setTimeout(() => {notificationZone.removeChild(newMsg)}, 2500);
+    }, function(err) {
+        let newMsg = document.createElement("p");
+        newMsg.innerText = `Hiba másoláskor (az üzenet nem tűnik el): ${err}`;
+        newMsg.classList.add("error");
+        notificationZone.appendChild(newMsg);
+    });
+}
+
 document.getElementById("rovogep-latin-copy").addEventListener("click", (event) => {
     let text = rovogepLatin.value;
-    navigator.clipboard.writeText(text).then(function() {
-        console.log('Async: Copying to clipboard was successful!');
-        setTimeout(function() {}, 3000);
-    }, function(err) {
-        console.error('Async: Could not copy text: ', err);
-    });
+    copyToClipboardWithFeedback(text);
+})
+document.getElementById("rovogep-runes-copy").addEventListener("click", (event) => {
+    let text = rovogepRunes.value;
+    copyToClipboardWithFeedback(text);
 })
