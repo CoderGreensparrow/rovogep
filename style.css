@@ -4,8 +4,9 @@
     /* https://css-tricks.com/sans-serif/ and https://css-tricks.com/snippets/css/better-helvetica/ */
     --font-sans: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     --font-runes: "Noto Sans Old Hungarian", Verdana, Geneva, Tahoma, sans-serif, serif;
-    --accent-color: #822900;
+    --accent-color: #0033cf;
     --shadow-color: rgba(0, 0, 0, 0.15);
+    --success-color: rgb(27 255 0 / 0.33);
 }
 
 * {
@@ -88,6 +89,25 @@ main {
 #rovogep-runes {
     font-family: var(--font-runes);
     direction: rtl;
+}
+
+
+#frontend-notifications {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 20px;
+}
+#frontend-notifications > p {
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+#frontend-notifications > p.success {
+    background-color: var(--success-color);
+    border: 2px outset var(--success-color);
+    box-shadow: var(--shadow-color) 0 10px 15px 0;
 }
 
 

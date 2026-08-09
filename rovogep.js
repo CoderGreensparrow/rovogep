@@ -277,6 +277,15 @@ rovogepRunes.addEventListener("input", (event) => {
     syncRovogep(false);
 })
 
+
+/* CLIPBOARD FUNCTIONALITY */
+// https://stackoverflow.com/a/30810322
 document.getElementById("rovogep-latin-copy").addEventListener("click", (event) => {
-    alert("notImplemented");
+    let text = rovogepLatin.value;
+    navigator.clipboard.writeText(text).then(function() {
+        console.log('Async: Copying to clipboard was successful!');
+        setTimeout(function() {}, 3000);
+    }, function(err) {
+        console.error('Async: Could not copy text: ', err);
+    });
 })
