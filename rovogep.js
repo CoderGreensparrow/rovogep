@@ -13,6 +13,10 @@ const runeTable = new Map([
     [")", "]"],
     ["„", "⹂"],
     ["”", "‟"],
+    ["Q", "𐲓𐲪"],
+    ["W", "𐲮"],
+    ["X", "𐲓𐲥"],
+    ["Y", "𐲐"],
     ["A", "𐲀"],
     ["Á", "𐲁"],
     ["B", "𐲂"],
@@ -32,7 +36,6 @@ const runeTable = new Map([
     ["Ggy", "𐲎𐳎"],
     ["H", "𐲏"],
     ["I", "𐲐"],
-    ["Y", "𐲐"],
     ["Í", "𐲑"],
     ["J", "𐲒"],
     ["K", "𐲓"],
@@ -52,7 +55,6 @@ const runeTable = new Map([
     ["Ö", "𐲞"],
     ["Ő", "𐲟"],
     ["P", "𐲠"],
-    ["Q", "𐲓𐲪"],
     ["R", "𐲢"],
     ["S", "𐲤"],
     ["SZ", "𐲥"],
@@ -69,8 +71,6 @@ const runeTable = new Map([
     ["Ü", "𐲭"],
     ["Ű", "𐲬"],
     ["V", "𐲮"],
-    ["W", "𐲮"],
-    ["X", "𐲓𐲥"],
     ["Z", "𐲯"],
     ["ZS", "𐲰"],
     ["Zs", "𐲰"],
@@ -212,9 +212,7 @@ function numberConvert(matchString, latinModified) {
     return outputDraft;
 }
 
-function syncRovogep(latinModified) {
-    const input = latinModified ? rovogepLatin.value : rovogepRunes.value;
-    const outputElement = latinModified ? rovogepRunes : rovogepLatin;
+function runeConvert(input, latinModified) {
     const localTable = latinModified ? runeTable : latinTable;
     const maxMatchLength = latinModified ? runeTableMaxMatchLength : latinTableMaxMatchLength;
     const localNumberCharacters = latinModified ? arabicNumberCharacters : runeNumberCharacters;
@@ -250,7 +248,12 @@ function syncRovogep(latinModified) {
             else {
                 if (localTable.has(matchStringUpper) && matchLength > 0) {  // don't match to empty strings
                     if (matchStringLower !== matchString) {  // if there is an uppercase letter
-                        outputDraft += localTable.get(matchString);  // then query from table
+                        let table_letter = localTable.get(matchString);  // then query from table
+                        if (table_letter !== undefined) {
+                            outputDraft += localTable.get(matchString);
+                        } else {
+                            outputDraft += localTable.get(matchStringUpper);  // fallback, if there is no table entry, use ALL CAPS RUNES
+                        }
                     } else {  // else handle full lowercase dynamically
                         outputDraft += localTable.get(matchStringUpper).toLowerCase();
                     }
@@ -267,6 +270,66 @@ function syncRovogep(latinModified) {
         }
     }
 
+    return outputDraft;
+}
+
+function correctDoubleLetterCapitalization(input) {
+    // Because runeConvert is a bit dumb backwards, it may output "SzÉKELyEK" if all the runes are capitalized.
+    // To combat this, double letters, which have any other possible letter-character after them, get their capitalization corrected.
+    // So: SzÉ becomes SZÉ. But SZé becomes Szé. It's always the middle character that gets aligned to fit the context.
+    // Similarly, if at the end of a letter-sequence (or "word", but spaces are not used for word boundry detection),
+    // double-letters are capitalized if the previous character is, so MECcs -> MECCS, but otherwise, the reverse is done: meCCS -> meCcs.
+    // These corrections are also done to CcsÉ. (Dz and Dzs are not checked for, as those cases are handled by the fact that there is no rune for them, so their capitalization info is only lost at the Zs part, so Zs-correction will handle them.)
+    // This correction is only done when converting from runes to latin letters, to make the text look more natural.
+
+    // The exact order of applying these rules is present in the funciton itself.
+    const nextLetter_FULLCAP_Matcher = /(Cs|Ccs|Gy|Ggy|Ly|Lly|Ny|Nny|Sz|Ssz|Ty|Tty|Zs|Zzs)([AÁBCDEÉFGHIÍJKLMNOÓÖŐPQRSTUÚÜŰVWXYZ])/vdg;
+    const nextLetter_fulllower_Matcher = /(CS|CCS|GY|GGY|LY|LLY|NY|NNY|SZ|SSZ|TY|TTY|ZS|ZZS)([aábcdeéfghiíjklmnoóöőpqrstuúüűvwxyz])/vdg;
+    const prevLetter_FULLCAP_Matcher = /([AÁBCDEÉFGHIÍJKLMNOÓÖŐPQRSTUÚÜŰVWXYZ])(Cs|Ccs|Gy|Ggy|Ly|Lly|Ny|Nny|Sz|Ssz|Ty|Tty|Zs|Zzs)/vdg;
+    const prevLetter_fulllower_Matcher = /([aábcdeéfghiíjklmnoóöőpqrstuúüűvwxyz])(CS|CCS|GY|GGY|LY|LLY|NY|NNY|SZ|SSZ|TY|TTY|ZS|ZZS)/vdg;
+
+
+    let i = 1;
+    let outputDraft = input;
+    outputDraft = outputDraft.replaceAll(prevLetter_FULLCAP_Matcher,
+        (match, p1, p2, offset, string, groups) => {
+            // p1 (capture group 1): The previous letter, also selected by the regex
+            // p2 (capture group 2): The double letter, like Ccs
+            return p1 + p2[0] + p2.slice(1, p2.length).toUpperCase();
+        }
+    )
+    outputDraft = outputDraft.replaceAll(prevLetter_fulllower_Matcher,
+        (match, p1, p2, offset, string, groups) => {
+            // p1 (capture group 1): The previous letter, also selected by the regex
+            // p2 (capture group 2): The double letter, like Ccs
+            return p1 + p2[0] + p2.slice(1, p2.length).toLowerCase();
+        }
+    )
+    outputDraft = outputDraft.replaceAll(nextLetter_FULLCAP_Matcher,
+        (match, p1, p2, offset, string, groups) => {
+            // p1 (capture group 1): The double letter, like Ccs
+            // p2 (capture group 2): The following letter, also selected by the regex
+            return p1.toUpperCase() + p2;
+        }
+    )
+    outputDraft = outputDraft.replaceAll(nextLetter_fulllower_Matcher,
+        (match, p1, p2, offset, string, groups) => {
+            // p1 (capture group 1): The double letter, like Ccs
+            // p2 (capture group 2): The following letter, also selected by the regex
+            return p1[0] + p1.slice(1, p1.length).toLowerCase() + p2;
+        }
+    )
+    return outputDraft;
+}
+
+function syncRovogep(latinModified) {
+    const input = latinModified ? rovogepLatin.value : rovogepRunes.value;
+    const outputElement = latinModified ? rovogepRunes : rovogepLatin;
+
+    let outputDraft = runeConvert(input, latinModified);
+    if (!latinModified) {
+        outputDraft = correctDoubleLetterCapitalization(outputDraft);
+    }
     outputElement.value = outputDraft;
 }
 
