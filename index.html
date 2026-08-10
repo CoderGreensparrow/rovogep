@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Rovógép 𐲢𐳛𐳮𐳜𐳍𐳋𐳠</title>
-    <link rel="stylesheet" href="cssreset.css">
+    <link rel="stylesheet" href="basestyle.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=content_copy" />
     <link rel="stylesheet" href="material-symbols.css">
-    <link rel="stylesheet" href="header-footer.css">
     <script src="rovogep.js" defer></script>
 </head>
 <body>
-<header></header>
+<header>
+    <nav>
+        <a href="/"><span class="emoji" title="Angol főoldal">🇬🇧 🇺🇸</span> Homepage</a>
+        <a href="/index-hu.html" title="Hungarian homepage"><span class="emoji">🇭🇺</span> Főoldal</a>
+        <a href="/rovogep" title="Old Hungarian rune carver machine">Rovógép</a>
+    </nav>
+</header>
 <main>
     <h1 class="rovogep-header">Rovógép</h1>
     <section class="rovogep-main">
@@ -34,5 +39,7 @@
     <div id="frontend-notifications"></div>
 </main>
 <footer>by <a class="author" href="https://github.com/CoderGreensparrow/rovogep"><img src="img/profilkép.JPG" class="profile-picture"> CoderGreensparrow</a>, licensed under the MIT license</footer>
+<script src="https://cdn.jsdelivr.net/npm/@twemoji/api@17.0.3/dist/twemoji.min.js" integrity="sha384-Y5xukbGJwykbHHkTbLJykYLcBPFxrwipTbEh0puxhkz9CZ90raTPGe2Ks4vCxsYU" crossorigin="anonymous"></script>
+<script>twemoji.parse(document.body);</script>
 </body>
 </html>

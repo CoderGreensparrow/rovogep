@@ -1,28 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Old+Hungarian&display=swap');
 
 :root {
-    /* https://css-tricks.com/sans-serif/ and https://css-tricks.com/snippets/css/better-helvetica/ */
-    --font-sans: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     --font-runes: "Noto Sans Old Hungarian", Verdana, Geneva, Tahoma, sans-serif, serif;
     --accent-color: #0033cf;
     --shadow-color: rgba(0, 0, 0, 0.15);
     --success-color: rgb(27 255 0 / 0.33);
     --error-color: rgb(255 0 0 / 0.68);
     --info-color: rgb(0 51 207 / 0.74);
-}
-
-* {
-    font-family: var(--font-sans);
-}
-
-body {
-    min-height: 100vh;
-}
-
-main {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
 .rovogep-header {
@@ -33,7 +17,6 @@ main {
     flex-flow: row wrap;
     width: 100%;
     gap: 10px;
-    padding: 0 10px;
 }
 .rovogep-field {
     flex: 1;
