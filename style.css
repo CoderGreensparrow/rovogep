@@ -125,27 +125,3 @@ main {
     color: white;
     box-shadow: var(--shadow-color) 0 10px 15px 0;
 }
-
-
-footer {
-    font-size: 12px;
-    width: 100%;
-    text-align: center;
-    line-height: 3em;
-    margin-top: 30px;
-    background-color: #b8f8bd;
-}
-.author {
-    display: inline;
-    font-style: normal;
-    text-decoration: none;
-}
-.author > .profile-picture {
-    display: inline;
-    height: 1.2em;  /* fallback */
-    height: 1.7cap;
-    vertical-align: -15%; /* fallback */
-    vertical-align: -0.35cap;
-    border-radius: 1000px;
-    box-shadow: var(--shadow-color) 0 1px 5px 0;
-}
