@@ -1,3 +1,7 @@
+:root {
+    --shadow-color: rgba(0, 0, 0, 0.15);
+}
+
 footer {
     font-size: 12px;
     width: 100%;
