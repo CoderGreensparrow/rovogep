@@ -73,6 +73,7 @@ h1, h2, h3, h4, h5, h6 {
     /* https://css-tricks.com/sans-serif/ and https://css-tricks.com/snippets/css/better-helvetica/ */
     --font-fancy: "Michroma", Tahoma, Geneva, Verdana, sans-serif;
     --font-sans: "Rajdhani", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    --font-monospace: Consolas, "Liberation Mono", "Courier New", monospace;
     --shadow-color: rgba(0, 0, 0, 0.15);
     --primary-color: #0018a8;
     --primary-light: oklch(from var(--primary-color) l calc(c + 0.2) h);
@@ -119,6 +120,24 @@ a:visited {
 
 ul {
     list-style-type: "— ";
+}
+
+kbd {
+    /* https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/kbd */
+    display: inline-block;
+    font-family: var(--font-monospace);
+    background-color: #eeeeee;
+    border-radius: 3px;
+    border: 1px solid #b4b4b4;
+    box-shadow:
+            0 1px 1px var(--shadow-color),
+            0 2px 0 0 rgb(255 255 255 / 0.7) inset;
+    color: #333333;
+    font-size: 0.85em;
+    font-weight: bold;
+    line-height: 1;
+    padding: 2px 4px;
+    white-space: nowrap;
 }
 
 nav {
