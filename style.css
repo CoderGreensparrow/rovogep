@@ -9,9 +9,6 @@
     --info-color: rgb(0 51 207 / 0.74);
 }
 
-.rovogep-header {
-    text-align: center;
-}
 .rovogep-main {
     display: flex;
     flex-flow: row wrap;
