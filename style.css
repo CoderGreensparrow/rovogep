@@ -2,7 +2,6 @@
 
 :root {
     --font-runes: "Noto Sans Old Hungarian", Verdana, Geneva, Tahoma, sans-serif, serif;
-    --accent-color: #0033cf;
     --shadow-color: rgba(0, 0, 0, 0.15);
     --success-color: rgb(27 255 0 / 0.33);
     --error-color: rgb(255 0 0 / 0.68);
@@ -66,7 +65,7 @@
     transition: outline 0.1s ease-in-out;
 }
 .rovogep-field > textarea:focus {
-    outline: var(--accent-color) solid 2px;
+    outline: var(--primary-light) solid 2px;
 }
 #rovogep-runes {
     font-family: var(--font-runes);
