@@ -35,6 +35,25 @@
             <textarea id="rovogep-runes" placeholder="𐲢𐳛𐳮𐳁𐳤 𐳏𐳉𐳗𐳉..." spellcheck="false" rows="6"></textarea>
         </div>
     </section>
+    <h2>Használati útmutató</h2>
+    <ul>
+        <li>Amelyik szövegdobozban szerkesztést végez, az lesz a „bemenet”, és a másik szövegdoboz lesz a „kimenet”. Vagyis minden, amit az egyik szövegdobozba változtat, meg fog jelenni a másik szövegdobozban, átalakított formában.</li>
+        <li>A bal oldali szövegdobozba egyszerűen csak magyarul kell gépelni. A jobb oldaliba rovás karakterekkel kell gépelni (ez nem végezhető el egyszerű magyar billentyűzeten).</li>
+        <li>Odafelé alakításnál, vagyis latin betűs magyar írásról rovásírásra alakításnál a következőkre kell figyelni:
+        <ul>
+            <li>A program minden számot átalakít az <a href="https://magyarrovas.hu/rovasiras-szamok-rovassal/">itt</a> leírtaknak megfelelően. <strong>Csakis 0-tól 999,999-ig tartó tartományban alakít át a program egész számokat rovásírásra.</strong></li>
+            <li>A program alapvetően balról jobbra haladva alakítja át a bevitt latin betűs szöveget karakterenként. Ha így talál egy olyan karaktersorozatot, ami egy magyar betűt jelenthet, mint az „sz” vagy a „zzs” (hosszú „zs”), akkor azt úgy is fogja értelmezni. Míg ez a legtöbb esetben hibátlanul működik, néhány kivételes összetett szónál, mint a <i>„házszám”</i>, helytelen átiratot szolgáltat, ugyanis így bontja fel a szót betűkre: <i>H-Á-ZS-Z-Á-M</i>. Ennek a problémának manuális kiküszöbölésére lett bevezetve, hogy ha <strong>egy ` karaktert teszünk a megfelelő elválasztás helyére, akkor a program tudni fogja, hol ér véget egy betű és honna kezdődik a következő. Így: ház`szám</strong>. Ez a karakter nem jelenik meg a kimenetben, de a program így már helyesen fogja átalakítani rovásírásra a bevitt szót: <i>H-Á-Z-SZ-Á-M</i>.</li>
+        </ul>
+        </li>
+        <li>Visszafelé alakításnál, vagyis rovásírásról latin betűs magyarra alakításnál kell még odafigyelni pár dologra:
+        <ul>
+            <li>A két vagy több karakterből álló mássalhangzók kapitalizációja (vagyis, hogy melyik karakter nagy vagy kicsi bennük) nem lesz meg teljesen, ugyanis a rovásban az „sz” az nem 2 karakter, hanem 1. Így, ha az eredeti bemenet „Sz” volt (nagy „sz”), akkor nem lehet visszakövetkeztetni, hogy egy nagy rovás „sz” annak latin betűkkel „SZ”-nek vagy „Sz”-nek kéne-e lenniük.<br>
+            Ennek orvoslására egy egyszerű kis- és nagybetűkorrektor működik a latin betűs bemeneten, (csak visszafelé alakítás esetén), ami pár egyszerű szabállyal próbálja korrigálni ezeket a kis hibákat. (Pl. ha az lenne egy rovásból visszaalakított szöveg kimenete a visszalakító algoritmus által, hogy „SzÉKELyEK”, akkor a Z-t és az Y-t korrigálja így: „SZÉKELYEK”.)<br>
+            Ez csak olyan szempontból fontos, hogy nem lehetséges minden ilyen információt eltárolni rovásírásban a latinban írott betűkről, ezért erre oda kell figyelni.</li>
+            <li>Szintén visszafelé alakításnál, ha egy helytelenül leírt rovásszám szerepel a szövegben, azt a program nem érzékeli, és megpróbálja alkalmazni rá az arab számokká alakító algoritmust. Természetesen így a kimenet nem lesz megbízható, ezért nagyon fontos, hogy <i>minden esetben megfelelően, a fenti linken szereplő számoknak megfelelően legyenek leírva a rovásírással írt számok.</i></li>
+        </ul>
+        </li>
+    </ul>
     <div id="frontend-notifications"></div>
 </main>
 <footer>by <a class="author" href="https://github.com/CoderGreensparrow/rovogep"><img src="img/profilkép.JPG" class="profile-picture"> CoderGreensparrow</a>, licensed under the MIT license</footer>

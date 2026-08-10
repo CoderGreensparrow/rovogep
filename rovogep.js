@@ -6,7 +6,7 @@ const rovogepLatin = document.getElementById("rovogep-latin");
 const rovogepRunes = document.getElementById("rovogep-runes");
 const runeTable = new Map([
     // no need to make full lowercase forms, but all other forms are required
-    ["'", ""],
+    ["`", ""],
     ["?", "⸮"],
     [",", "⹁"],
     [";", "⁏"],
