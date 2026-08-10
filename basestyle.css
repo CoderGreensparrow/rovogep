@@ -98,6 +98,10 @@ main {
 h1, h2, h3 {
     margin-bottom: 8px;
 }
+h1 {
+    font-family: var(--font-fancy);
+    text-align: center;
+}
 
 a {
     text-decoration: none;
