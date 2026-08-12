@@ -172,6 +172,9 @@ nav > a::after {
     transform-origin: center;
     transition: transform 0.3s cubic-bezier(0.8, 0, 0.2, 1);
 }
+nav > a:visited {
+    color: black;
+}
 nav > a:hover {
     color: var(--primary-color);
 }
@@ -182,9 +185,6 @@ nav > a:active {
     color: var(--primary-color);
     border-image-slice: 49.5%;
     transform: rotateX(90deg);
-}
-nav > a:visited {
-    color: black;
 }
 
 footer {
