@@ -184,7 +184,7 @@ nav > a:active {
     transform: rotateX(90deg);
 }
 nav > a:visited {
-    color: var(--primary-color);
+    color: black;
 }
 
 footer {
